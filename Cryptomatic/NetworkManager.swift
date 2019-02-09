@@ -14,7 +14,7 @@ class NetworkManager {
     init() {}
     
     
-        func getAllCoins(completed: @escaping (([Cryptocoin]?, Error?) -> Void)){
+        func get100Coins(completed: @escaping (([Cryptocoin]?, Error?) -> Void)){
             
             let endpoint: String = EndPoints.allCoins
             guard let url = URL(string: endpoint) else {

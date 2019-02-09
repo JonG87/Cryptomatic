@@ -23,6 +23,10 @@
 		31B39590220B4DAB00994D4C /* CoinMarketCapGlobalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3958F220B4DAB00994D4C /* CoinMarketCapGlobalData.swift */; };
 		31FCB558220B693A00907060 /* UIView+Gradient+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FCB557220B693A00907060 /* UIView+Gradient+Extension.swift */; };
 		31FCB55A220B699800907060 /* UIVIew+RoundCorners+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FCB559220B699800907060 /* UIVIew+RoundCorners+Extension.swift */; };
+		31FD06E3220E748400AA5A54 /* CryptomaticVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD06E2220E748400AA5A54 /* CryptomaticVC.swift */; };
+		31FD06E5220E86FC00AA5A54 /* CryptomaticTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD06E4220E86FC00AA5A54 /* CryptomaticTableViewCell.swift */; };
+		31FD06E7220E8EFF00AA5A54 /* CryptomaticVC+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD06E6220E8EFF00AA5A54 /* CryptomaticVC+Setup.swift */; };
+		31FD06E9220E8F4E00AA5A54 /* CryptomaticVC+TapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD06E8220E8F4E00AA5A54 /* CryptomaticVC+TapGesture.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +69,10 @@
 		31B3958F220B4DAB00994D4C /* CoinMarketCapGlobalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinMarketCapGlobalData.swift; sourceTree = "<group>"; };
 		31FCB557220B693A00907060 /* UIView+Gradient+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Gradient+Extension.swift"; sourceTree = "<group>"; };
 		31FCB559220B699800907060 /* UIVIew+RoundCorners+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+RoundCorners+Extension.swift"; sourceTree = "<group>"; };
+		31FD06E2220E748400AA5A54 /* CryptomaticVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomaticVC.swift; sourceTree = "<group>"; };
+		31FD06E4220E86FC00AA5A54 /* CryptomaticTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomaticTableViewCell.swift; sourceTree = "<group>"; };
+		31FD06E6220E8EFF00AA5A54 /* CryptomaticVC+Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CryptomaticVC+Setup.swift"; sourceTree = "<group>"; };
+		31FD06E8220E8F4E00AA5A54 /* CryptomaticVC+TapGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CryptomaticVC+TapGesture.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +129,10 @@
 				31B39589220B4BCF00994D4C /* HomeVC.swift */,
 				31B3958D220B4CF700994D4C /* Cryptocoin.swift */,
 				31B39556220A076D00994D4C /* Main.storyboard */,
+				31FD06E2220E748400AA5A54 /* CryptomaticVC.swift */,
+				31FD06E8220E8F4E00AA5A54 /* CryptomaticVC+TapGesture.swift */,
+				31FD06E6220E8EFF00AA5A54 /* CryptomaticVC+Setup.swift */,
+				31FD06E4220E86FC00AA5A54 /* CryptomaticTableViewCell.swift */,
 				31B39583220A09C900994D4C /* Constants.swift */,
 				31B39587220B4BA100994D4C /* Emitter.swift */,
 				31B39585220A09D900994D4C /* NetworkManager.swift */,
@@ -291,13 +303,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31FD06E7220E8EFF00AA5A54 /* CryptomaticVC+Setup.swift in Sources */,
 				31FCB55A220B699800907060 /* UIVIew+RoundCorners+Extension.swift in Sources */,
 				31B3955B220A076D00994D4C /* Cryptomatic.xcdatamodeld in Sources */,
 				31B3958A220B4BCF00994D4C /* HomeVC.swift in Sources */,
 				31B39555220A076D00994D4C /* ViewController.swift in Sources */,
+				31FD06E5220E86FC00AA5A54 /* CryptomaticTableViewCell.swift in Sources */,
 				31B39588220B4BA100994D4C /* Emitter.swift in Sources */,
 				31FCB558220B693A00907060 /* UIView+Gradient+Extension.swift in Sources */,
+				31FD06E3220E748400AA5A54 /* CryptomaticVC.swift in Sources */,
 				31B39586220A09D900994D4C /* NetworkManager.swift in Sources */,
+				31FD06E9220E8F4E00AA5A54 /* CryptomaticVC+TapGesture.swift in Sources */,
 				31B39590220B4DAB00994D4C /* CoinMarketCapGlobalData.swift in Sources */,
 				31B3958E220B4CF700994D4C /* Cryptocoin.swift in Sources */,
 				31B39553220A076D00994D4C /* AppDelegate.swift in Sources */,
