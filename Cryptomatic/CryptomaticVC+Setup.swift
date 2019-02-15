@@ -11,7 +11,7 @@ import UIKit
 
 extension CryptomaticVC{
     func setupNumberFormat(){
-        numberFormat.maximumFractionDigits = 5
+        numberFormat.maximumFractionDigits = 4
         numberFormat.currencySymbol = "$"
         numberFormat.groupingSeparator = ","
         numberFormat.numberStyle = NumberFormatter.Style.currency
@@ -23,12 +23,12 @@ extension CryptomaticVC{
         refreshControl.backgroundColor = .clear
         refreshControl.addTarget(self, action: #selector(refreshData(sender:)), for: .valueChanged)
     }
-//    func setupActivityIndicator(){
-//        activityIndicator.center = self.view.center
-//        activityIndicator.hidesWhenStopped = true
-//        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.white
-//        view.addSubview(activityIndicator)
-//    }
+    func setupActivityIndicator(){
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.white
+        view.addSubview(activityIndicator)
+    }
     
     func setupEmptyFavoriteView(){
         emptyFavoriteView.textColor = UIColor.white

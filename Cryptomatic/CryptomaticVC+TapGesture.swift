@@ -139,10 +139,14 @@ extension CryptomaticVC{
             tappedImage.image = #imageLiteral(resourceName: "filled_star")
             favorites.append(cell.idLabel.text!)
             defaults.set(favorites, forKey: UserDefault.favoriteCoins)
+            print(cell.idLabel.text!)
+            dump(favorites)
         } else {
             tappedImage.image = #imageLiteral(resourceName: "hollow_star")
             favorites = favorites.filter{$0 != cell.idLabel.text}
+            dump(favorites)
             defaults.set(favorites, forKey: UserDefault.favoriteCoins)
+            print(cell.idLabel.text!)
             if (segmentControl.selectedSegmentIndex == 1){
                 tableView.reloadData()
             }

@@ -16,17 +16,18 @@ class CryptomaticVC: UIViewController, UISearchBarDelegate{
     @IBOutlet weak var usdLabel: UILabel!
     @IBOutlet weak var coinLabel: UILabel!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var cryptocoins: [Cryptocoin]           = []
     var cryptocoinsFavorite: [Cryptocoin]   = []
     var cryptocoinsSearch: [Cryptocoin]     = []
     var sortedCryptocoins: [Cryptocoin]     = []
-    var favorites: [String]                 = []
+    var favorites: [String]                 = []				
     var expandedRows                        = Set<Int>()
     var isAlphabetical      = Bool()
     var isPriceHighest      = Bool()
     var isChangeHighest     = Bool()
-    var isRankedHighest     = Bool()
+    var isRankedHighest     = Bool()					
     var favIsAlphabetical   = Bool()
     var favIsPriceHighest   = Bool()
     var favIsChangeHighest  = Bool()
@@ -39,6 +40,8 @@ class CryptomaticVC: UIViewController, UISearchBarDelegate{
     let emptyFavoriteView   = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
     override func viewDidLoad() {
+       UserDefaults.standard.setValue(true, forKey:"_UIConstraintBasedLayoutLogUnsatisfiable")
+
         super.viewDidLoad()
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         setupNumberFormat()
@@ -50,22 +53,18 @@ class CryptomaticVC: UIViewController, UISearchBarDelegate{
         tableView.rowHeight = UITableView.automaticDimension
         tableView.indicatorStyle = UIScrollView.IndicatorStyle.white
         
-        //activityIndicator.startAnimating()
+        activityIndicator.startAnimating()
         tableView.isHidden = true
         view.setGradientBackground(colorOne: Colors.marinerBlue, colorTwo: Colors.pickledBlueWood)
         searchBar.delegate = self
-        //UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-        //UserDefaults.standard.synchronize()
         favorites = defaults.stringArray(forKey: UserDefault.favoriteCoins) ?? [String]()
         
         handleGestures()
-        // setupNumberFormat()
         setupRefreshControl()
         setupEmptyFavoriteView()
-        //setupActivityIndicator()
+        setupActivityIndicator()
         setupSearchBar()
     }
-
     func get100Coins() {
         networkManager.get100Coins{(coins, error) in
             DispatchQueue.main.async {
@@ -73,7 +72,7 @@ class CryptomaticVC: UIViewController, UISearchBarDelegate{
                 for coin in coins! {
                     self.cryptocoins.append(coin)
                 }
-                //self.activityIndicator.stopAnimating()
+                self.activityIndicator.stopAnimating()
                 self.tableView.isHidden = false
                 self.refreshControl.endRefreshing()
                 self.tableView.reloadData()
@@ -102,18 +101,15 @@ class CryptomaticVC: UIViewController, UISearchBarDelegate{
     
     func setupCell(indexPath: IndexPath, cell: CryptomaticTableViewCell, cryptocoinsArray: [Cryptocoin]) -> CryptomaticTableViewCell{
         
-        cell.idLabel.text                                = cryptocoinsArray[indexPath.row].id
-        cell.tickerLabel.text                              = cryptocoinsArray[indexPath.row].symbol
-        cell.coinNameLabel.text                         = cryptocoinsArray[indexPath.row].name
+        cell.idLabel.text                           = cryptocoinsArray[indexPath.row].id
+        cell.tickerLabel.text                       = cryptocoinsArray[indexPath.row].symbol
+        cell.coinNameLabel.text                     = cryptocoinsArray[indexPath.row].name
         //cell.bitcoinPrice.text                      = cryptocoinsArray[indexPath.row].price_btc
         //cell.rankLabel.text                         = String(describing: cryptocoinsArray[indexPath.row].rank!)
-        //cell.coinAvailabilityLabel.text             = cryptocoinsArray[indexPath.row].available_supply
+        cell.coinAvailabilityLabel.text             = cryptocoinsArray[indexPath.row].available_supply
         cell.volumeLabel.text                       = numberFormat.string(from: NSNumber(value: cryptocoinsArray[indexPath.row].daily_volume_usd!))
         cell.marketCapLabel.text                    = numberFormat.string(from: NSNumber(value: cryptocoinsArray[indexPath.row].market_cap_usd!))
-        
-        //        let usdprice                                = cryptocoinsArray[indexPath.row].price_usd!
-        //        cell.usd_Price.text                         = numberFormat.string(from: NSNumber(value: usdprice))
-        cell.priceLabel.text                         = numberFormat.string(from: NSNumber(value: cryptocoinsArray[indexPath.row].price_usd!))
+        cell.priceLabel.text                        = numberFormat.string(from: NSNumber(value: cryptocoinsArray[indexPath.row].price_usd!))
         
         let hourPercentChange                       = cryptocoinsArray[indexPath.row].percent_change_1h!
         cell.hourlyChangeLabel.text                     = "\(String(describing:hourPercentChange))%"
@@ -121,7 +117,7 @@ class CryptomaticVC: UIViewController, UISearchBarDelegate{
         cell.hourlyLabel.text                       = "\(String(describing:hourPercentChange))%"
         cell.hourlyLabel.textColor                  = getColorRating(colorRating: hourPercentChange)
         
-        cell.priceLabel.textColor                    = cell.hourlyChangeLabel.textColor
+        cell.priceLabel.textColor                   = cell.hourlyChangeLabel.textColor
         cell.hourlyChangeBarView.backgroundColor    = cell.hourlyLabel.textColor
         
         let dailyPercentChance = cryptocoinsArray[indexPath.row].percent_change_24h!
@@ -191,11 +187,15 @@ class CryptomaticVC: UIViewController, UISearchBarDelegate{
     
     @IBAction func switchSegments(_ sender: Any) {
         if(self.segmentControl.selectedSegmentIndex == 0){
+            searchBar.isUserInteractionEnabled = true
+            searchBar.alpha = 1.00
             emptyFavoriteView.isHidden = true
             tableView.isHidden = false
             tableView.reloadData()
         }
         if(self.segmentControl.selectedSegmentIndex == 1){
+            searchBar.isUserInteractionEnabled = false
+            searchBar.alpha = 0.25
             if favorites.count == 0{
                 tableView.isHidden = true
                 emptyFavoriteView.isHidden = false
@@ -204,10 +204,11 @@ class CryptomaticVC: UIViewController, UISearchBarDelegate{
                 tableView.isHidden = false
                 emptyFavoriteView.isHidden = true
                 tableView.reloadData()
+                let index = IndexPath(row: 1, section: 0)
+                tableView.scrollToRow(at: index, at: .top, animated: false)
             }
         }
     }
-    
     
     func getColorRating(colorRating: Double ) -> UIColor{
         var color = UIColor()
@@ -218,8 +219,6 @@ class CryptomaticVC: UIViewController, UISearchBarDelegate{
     
     
 }
-
-    
     // MARK: - UITableViewDelegate
     extension CryptomaticVC: UITableViewDelegate{
         
@@ -279,17 +278,27 @@ class CryptomaticVC: UIViewController, UISearchBarDelegate{
             
             if segmentControl.selectedSegmentIndex == 1 {
                 let count = favorites.count > 0 ? favorites.count - 1 : 0
-                if(favorites.count == cryptocoinsFavorite.count && favorites.count != 0){
-                    cell = setupCell(indexPath: indexPath, cell: cell, cryptocoinsArray: cryptocoinsFavorite)
-                }else if(favorites.count == 0){
-                    print("Nothing to display")
-                }else{
-                    cryptocoinsFavorite.removeAll()
-                    for i in 0...count{
-                        cryptocoinsFavorite += cryptocoins.filter {$0.id == favorites[i]}
-                    }
-                    cell = setupCell(indexPath: indexPath, cell: cell, cryptocoinsArray: cryptocoinsFavorite)
+                cryptocoinsFavorite.removeAll()
+                for i in 0...count{
+                    cryptocoinsFavorite += cryptocoins.filter {$0.id == favorites[i]}
                 }
+                cell = setupCell(indexPath: indexPath, cell: cell, cryptocoinsArray: cryptocoinsFavorite)
+//                let count = favorites.count > 0 ? favorites.count - 1 : 0
+//                if(favorites.count == cryptocoinsFavorite.count && favorites.count != 0){
+//                    cryptocoinsFavorite.removeAll()
+//                    for i in 0...count{
+//                        cryptocoinsFavorite += cryptocoins.filter {$0.id == favorites[i]}
+//                    }
+//                    cell = setupCell(indexPath: indexPath, cell: cell, cryptocoinsArray: cryptocoinsFavorite)
+//                }else if(favorites.count == 0){
+//                    print("Nothing to display")
+//                }else{
+//                    cryptocoinsFavorite.removeAll()
+//                    for i in 0...count{
+//                        cryptocoinsFavorite += cryptocoins.filter {$0.id == favorites[i]}
+//                    }
+//                    cell = setupCell(indexPath: indexPath, cell: cell, cryptocoinsArray: cryptocoinsFavorite)
+//                }
             }
             
             if segmentControl.selectedSegmentIndex == 0 {
@@ -302,5 +311,3 @@ class CryptomaticVC: UIViewController, UISearchBarDelegate{
             return cell
         }
     }
-
-

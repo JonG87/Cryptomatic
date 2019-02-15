@@ -32,7 +32,10 @@ class CryptomaticTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.selectionStyle = UITableViewCell.SelectionStyle.none
+        self.hourlyChangeBarView.roundCorners([.allCorners], radius: 10)
+
+       // self.setGradientBackground(colorOne: Colors.marinerBlue, colorTwo: Colors.pickledBlueWood)
     }
 
     var isExpanded: Bool = false
@@ -40,10 +43,10 @@ class CryptomaticTableViewCell: UITableViewCell {
         didSet
         {
             if !isExpanded {
-                viewContainerHeightConstant.constant = 0.0
+                viewContainerHeightConstant.constant = 0
                 //hourlyChangeBarHeight.constant = 29
             } else {
-                viewContainerHeightConstant.constant = 100
+                viewContainerHeightConstant.constant = 90
                 //hourlyChangeBarHeight.constant = 145
             }
         }
