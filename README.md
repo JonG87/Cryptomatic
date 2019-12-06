@@ -5,3 +5,5 @@ I've used StoryBoard to create the UI and parses the JSON to display currency, n
 ![home](https://github.com/JonG87/Cryptomatic/blob/master/cryptmatic_home.png)
 Pressing on a coin expands the Crypto Currency information.
 ![home](https://github.com/JonG87/Cryptomatic/blob/master/expanded1.png)
+Displays a favorites list with all the information being saved in UserContact settings
+![home](https://github.com/JonG87/Cryptomatic/blob/master/cryptomatic_fav.png)
